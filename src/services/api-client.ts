@@ -1,9 +1,30 @@
 // this api needs vpn otherwise it does not show the components of the games
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-export default axios.create({
+export interface FetchResponse<T> {
+  count: number;
+  next: string | null;
+  results: T[];
+}
+
+const axiosInstance = axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
     key: "70efeecf71a04218bb043d6703a7f4c9",
   },
 });
+
+class APIClient<T> {
+  endpoint: string;
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  getAll = (config: AxiosRequestConfig) => {
+    return axiosInstance
+      .get<FetchResponse<T>>(this.endpoint, config)
+      .then((res) => res.data);
+  };
+}
+
+export default APIClient;
