@@ -7,16 +7,15 @@ import {
   ListItem,
   Spinner,
 } from "@chakra-ui/react";
-import useData from "../hooks/useData";
-import { Genre } from "../hooks/useGenres";
+import useGenres, { Genre } from "../hooks/useGenres";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
 }
 
-const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
-  const { data, isLoading, error } = useData<Genre>("/genres");
+const GenreList = ({ selectedGenreId, onSelectedGenre }: Props) => {
+  const { data, isLoading, error } = useGenres();
 
   // these two are use for dynamic shipping data but now we dont need these because we use static shipping data.
   if (error) return null;
@@ -28,7 +27,7 @@ const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
         Genres
       </Heading>
       <List>
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image
@@ -39,7 +38,7 @@ const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
               />
               <Button
                 onClick={() => onSelectedGenre(genre)}
-                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
                 whiteSpace="normal"
                 textAlign="left"
                 variant="link"
