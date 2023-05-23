@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
@@ -7,15 +6,17 @@ import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
 
-export interface GameQuery {
-  genreId?: number;
-  platformId?: number;
-  sortOrder: string;
-  searchText: string;
-}
+// for ReactQuery usage
+// export interface GameQuery {
+//   genreId?: number;
+//   platformId?: number;
+//   sortOrder: string;
+//   searchText: string;
+// }
 
 const App = () => {
-  const [gameQurey, setGameQurey] = useState<GameQuery>({} as GameQuery);
+  // for ReactQuery usage
+  // const [gameQurey, setGameQurey] = useState<GameQuery>({} as GameQuery);
 
   return (
     <Grid
@@ -32,40 +33,50 @@ const App = () => {
     >
       <GridItem area={"nav"}>
         <NavBar
-          onSearch={(searchText) => setGameQurey({ ...gameQurey, searchText })}
+        // for ReactQuery usage
+        // onSearch={(searchText) => setGameQurey({ ...gameQurey, searchText })}
         />
       </GridItem>
       <Show above="lg">
         <GridItem area={"aside"} paddingX={5}>
           <GenreList
-            selectedGenreId={gameQurey.genreId}
-            onSelectedGenre={(genre) =>
-              setGameQurey({ ...gameQurey, genreId: genre.id })
-            }
+          // for ReactQuery usage
+          // selectedGenreId={gameQurey.genreId}
+          // onSelectedGenre={(genre) =>
+          //   setGameQurey({ ...gameQurey, genreId: genre.id })
+          // }
           />
         </GridItem>
       </Show>
       <GridItem area={"main"}>
         <Box paddingLeft={2}>
-          <GameHeading gameQuery={gameQurey} />
+          <GameHeading
+          // for ReactQuery usage
+          // gameQuery={gameQurey}
+          />
           <Flex marginBottom={5}>
             <Box marginRight={5}>
               <PlatformSelector
-                onSelectPlatform={(platform) =>
-                  setGameQurey({ ...gameQurey, platformId: platform.id })
-                }
-                selectedPlatformId={gameQurey.platformId}
+              // for ReactQuery usage
+              // onSelectPlatform={(platform) =>
+              //   setGameQurey({ ...gameQurey, platformId: platform.id })
+              // }
+              // selectedPlatformId={gameQurey.platformId}
               />
             </Box>
             <SortSelector
-              sortOrder={gameQurey.sortOrder}
-              onSelectSortOrder={(sortOrder) =>
-                setGameQurey({ ...gameQurey, sortOrder })
-              }
+            // for ReactQuery usage
+            // sortOrder={gameQurey.sortOrder}
+            // onSelectSortOrder={(sortOrder) =>
+            //   setGameQurey({ ...gameQurey, sortOrder })
+            // }
             />
           </Flex>
         </Box>
-        <GameGrid gameQurey={gameQurey} />
+        <GameGrid
+        // for ReactQuery usage
+        // gameQurey={gameQurey}
+        />
       </GridItem>
     </Grid>
   );
